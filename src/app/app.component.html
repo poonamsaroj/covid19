@@ -1,13 +1,56 @@
 <mat-toolbar color="primary" class="mat-elevation-z2">
     <mat-toolbar-row>
       <span>COVID-19 TRACKER</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon" [matMenuTriggerFor]="menu">settings</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="selectedCountry('us')">USA</button>
+        <button mat-menu-item (click)="selectedCountry('india')">India</button>
+        <button mat-menu-item (click)="selectedCountry('italy')">Italy</button>
+        <button mat-menu-item (click)="selectedCountry('spain')">Spain</button>
+        <button mat-menu-item (click)="selectedCountry('france')">France</button>
+      </mat-menu>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="container">
+  <!-- Mat Card start -->
+  <h1>World Cases</h1>
 
-    <!-- Mat Card start -->
-    <div fxLayout="row" fxLayoutAlign="space-around center" >
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+
+      <mat-card class="example-card mat-elevation-z3">
+          <mat-card-header>
+            <mat-card-title>Confirmed Cases</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{this.recoveredData}}
+          </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="example-card mat-elevation-z3">
+          <mat-card-header>
+            <mat-card-title>Death Cases</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{this.recoveredData}}
+          </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="example-card mat-elevation-z3">
+          <mat-card-header>
+            <mat-card-title>Recovered Cases</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{this.recoveredData}}
+          </mat-card-content>
+      </mat-card>
+
+    </div>
+
+    <h1>{{CountryName}}</h1>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+
       <mat-card class="example-card mat-elevation-z3">
           <mat-card-header>
             <mat-card-title>Confirmed Cases</mat-card-title>
@@ -34,12 +77,77 @@
             {{this.recoveredData}}
           </mat-card-content>
       </mat-card>
+
     </div>
     <!-- Mat card end -->
 
 </div>
 
 
+<div id="chartdiv" style="width: 100%; height: 500px"></div>
+<div id="chartdiv1" style="width: 100%; height: 500px"></div>
 
+<!-- <div>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
+  </mat-form-field>
 
-<app-bar-chart [data]="deathsData | async"></app-bar-chart>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="country_name">
+      <th mat-header-cell *matHeaderCellDef> country_name </th>
+      <td mat-cell *matCellDef="let element"> {{element.country_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cases">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.cases}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deaths">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.deaths}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total_recovered">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.total_recovered}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="new_deaths">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.new_deaths}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="new_cases">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.new_cases}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="serious_critical">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.serious_critical}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active_cases">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.active_cases}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total_cases_per_1m_population">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div> -->
