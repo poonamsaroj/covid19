@@ -5,7 +5,8 @@ var cors = require('cors')
 
 let corsOptions = {
     credentials: true,
-    origin: ['https://covid19-visual-data.herokuapp.com', 'http://localhost:8080'],
+    // origin: ['https://covid19-visual-data.herokuapp.com', 'http://localhost:8080'],
+    origin: ['https://covid19-visual-data.herokuapp.com'],
     methods: ['GET', 'POST', 'PUT']
 }
 

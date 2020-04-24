@@ -155,15 +155,15 @@ export class AppComponent {
     this.CountryName = countryName.toUpperCase();
   // API call for India confirmed cases
     let confirmedData = this.https.get<any>('https://covid1910.p.rapidapi.com/data/confirmed/country/' + countryName,
-    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714'} });
+    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714','Access-Control-Allow-Origin': '*'} });
 
     // Calling death cases
     let deathsData = this.https.get<any>('https://covid1910.p.rapidapi.com/data/death/country/' + countryName,
-    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714'} });
+    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714','Access-Control-Allow-Origin': '*'} });
 
     // Calling recovered cases
     let recoveredData = this.https.get<any>('https://covid1910.p.rapidapi.com/data/recovered/country/' + countryName,
-    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714'} });
+    { headers: {'x-rapidapi-host':'covid1910.p.rapidapi.com','x-rapidapi-key':'acfeacb8e5mshaaed9863eea2255p1f8330jsn99bae8f26714','Access-Control-Allow-Origin': '*'} });
 
     // Subscribing to all the observable values
     confirmedData.subscribe(updatedValue => {
