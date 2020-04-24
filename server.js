@@ -5,7 +5,7 @@ var cors = require('cors')
 
 let corsOptions = {
     credentials: true,
-    origin: [process.env.ORIGIN_URL, 'http://localhost:8080'],
+    origin: ['https://covid19-visual-data.herokuapp.com', 'http://localhost:8080'],
     methods: ['GET', 'POST', 'PUT']
 }
 
