@@ -1,13 +1,14 @@
-import { Component, NgZone, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, Output, ViewChild, Input, ElementRef, NgZone , EventEmitter} from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataModel, ConfirmedDataModel } from './data.model';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+
 am4core.useTheme(am4themes_animated);
 
 @Component({
@@ -16,7 +17,21 @@ am4core.useTheme(am4themes_animated);
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  private chart: am4charts.XYChart;
+  @ViewChild('charRef', {static: true}) charRef: ElementRef;
+  chartType: string = 'XYChart';
+  chartData: any[];
+  categoryAxis : am4charts.CategoryAxis;
+  columnSeriesOne: am4charts.ColumnSeries;
+  columnSeriesTwo: am4charts.ColumnSeries;
+  valueAxis: am4charts.ValueAxis;
+  graphs: am4charts.Series[] = [];  
+  private chart: am4charts.Chart;
+  input: string;
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  // private chart: am4charts.XYChart;
   confirmedData: Observable<any>;
   deathsData: Observable<any>;
   recoveredData: Observable<any>;
@@ -65,51 +80,21 @@ export class AppComponent {
     });
 
     tableData.subscribe(updatedValue => {
-      this.dataSource = updatedValue['countries_stat'];
-      console.log(this.dataSource);
+      updatedValue['countries_stat'].shift();
+      this.dataSource = new MatTableDataSource<any>(updatedValue['countries_stat']);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
 
   }
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
 
     // runOutsideAngualr is zone method
-    let chart = am4core.create("chartdiv", am4charts.PieChart);
-    let chart1 = am4core.create("chartdiv1", am4charts.XYChart);
+    let chartdata = am4core.create("chartdiv", am4charts.PieChart);
 
     // Add data
-    chart.data = [{
-      "country": "Lithuania",
-      "litres": 501.9
-    }, {
-      "country": "Czech Republic",
-      "litres": 301.9
-    }, {
-      "country": "Ireland",
-      "litres": 201.1
-    }, {
-      "country": "Germany",
-      "litres": 165.8
-    }, {
-      "country": "Australia",
-      "litres": 139.9
-    }, {
-      "country": "Austria",
-      "litres": 128.3
-    }, {
-      "country": "UK",
-      "litres": 99
-    }, {
-      "country": "Belgium",
-      "litres": 60
-    }, {
-      "country": "The Netherlands",
-      "litres": 50
-    }];
-
-    chart1.data = [{
+    chartdata.data = [{
       "country": "Lithuania",
       "litres": 501.9
     }, {
@@ -139,17 +124,100 @@ export class AppComponent {
     }];
     
     // Add and configure Series
-    let pieSeries = chart.series.push(new am4charts.PieSeries());
-    let lineSeries = chart1.series.push(new am4charts.LineSeries());
+    let pieSeries = chartdata.series.push(new am4charts.PieSeries());
+    // let lineSeries = chart1.series.push(new am4charts.LineSeries());
     pieSeries.dataFields.value = "litres";
     pieSeries.dataFields.category = "country";
 
-    lineSeries.dataFields.valueY = "litres";
-    lineSeries.dataFields.categoryX = "country";
+    let chart = am4core.create("chartdiv1", am4charts.XYChart);
+
+    chart.data = [{
+     "country": "USA",
+     "visits": 2025
+    }, {
+     "country": "China",
+     "visits": 1882
+    }, {
+     "country": "Japan",
+     "visits": 1809
+    }, {
+     "country": "Germany",
+     "visits": 1322
+    }, {
+     "country": "UK",
+     "visits": 1122
+    }, {
+     "country": "France",
+     "visits": 1114
+    }, {
+     "country": "India",
+     "visits": 984
+    }, {
+     "country": "Spain",
+     "visits": 711
+    }, {
+     "country": "Netherlands",
+     "visits": 665
+    }, {
+     "country": "Russia",
+     "visits": 580
+    }, {
+     "country": "South Korea",
+     "visits": 443
+    }, {
+     "country": "Canada",
+     "visits": 441
+    }];
+    
+    chart.padding(40, 40, 40, 40);
+    
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "country";
+    categoryAxis.renderer.minGridDistance = 60;
+    categoryAxis.renderer.inversed = true;
+    categoryAxis.renderer.grid.template.disabled = true;
+    
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.extraMax = 0.1;
+    //valueAxis.rangeChangeEasing = am4core.ease.linear;
+    //valueAxis.rangeChangeDuration = 1500;
+    
+    let series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "visits";
+    series.tooltipText = "{valueY.value}"
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.column.cornerRadiusTopRight = 10;
+    series.columns.template.column.cornerRadiusTopLeft = 10;
+    //series.interpolationDuration = 1500;
+    //series.interpolationEasing = am4core.ease.linear;
+    let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+    labelBullet.label.verticalCenter = "bottom";
+    labelBullet.label.dy = -10;
+    labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+    
+    chart.zoomOutButton.disabled = true;
+    
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", function (fill, target) {
+     return chart.colors.getIndex(target.dataItem.index);
+    });
+    
+    setInterval(function () {
+     am4core.array.each(chart.data, function (item) {
+       item.visits += Math.round(Math.random() * 200 - 100);
+       item.visits = Math.abs(item.visits);
+     })
+     chart.invalidateRawData();
+    }, 2000)
+    
+    categoryAxis.sortBySeries = series;
+    
   }
 
   ngOnInit(): void { }
-
 
   selectedCountry(countryName){
     this.CountryName = countryName.toUpperCase();

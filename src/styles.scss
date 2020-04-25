@@ -27,6 +27,154 @@ $covid19-theme: mat-light-theme($covid19-primary, $covid19-accent, $covid19-warn
 @include angular-material-theme($covid19-theme);
 
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+// @import '~material-design-icons/iconfont/material-icons.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+::ng-deep.mat-button{
+    cursor: pointer!important;
+}
+
+input:focus, textarea, button {
+    outline: none !important;
+}
+
+body {
+    margin: 0;
+}
+
+/* Font family start */
+@font-face {
+    font-family: 'Gotham Bold';
+    src: url(../src/assets/fonts/GothamBold.woff) format('woff')
+}
+@font-face {
+    font-family: 'Gotham Medium';
+    src: url(../src/assets/fonts/Gotham-Medium.woff) format('woff')
+}
+/* Font family end */
+
+/* Font family in application */
+*:not(mat-icon){ 
+    font-family: 'Gotham Medium'!important;
+    font-size: 12px;
+}
+.content{
+    padding-top: 80px;
+}
+
+/* Feature styles */
+.pull-right{
+    float: right;
+}
+.pull-left{
+    float: left;
+}
+
+/* Table in all pages */
+table{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.table-heading .profile-code, table.mat-table .mat-row .mat-cell{
+    font-size: 1rem;
+}
+
+.container{
+    width: 95%!important;
+    margin-bottom: 50px;
+}
+
+/* Table heading */
+.table-heading{
+    font-size: 18px;
+    color: #2E3192;
+}
+
+/* Global table filter */
+.table-filter{
+    float: right;
+}
+.global-filter .mat-form-field-appearance-outline .mat-form-field-infix{
+    padding: 0.3em 0 0.8em 0;
+}
+.global-filter .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+}
+::ng-deep .mat-sort-header-arrow {
+    color: white;
+}
+thead tr.mat-header-row {
+    background: #2E3192;
+    min-width: 2800px;  
+    width: 100%;  
+    height: 40px!important;
+    min-height: 40px!important;
+}
+th.mat-header-cell {
+    color: white;
+}
+.textUnderline{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.hide{
+    display: none!important;
+}
+.loader{ 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    padding: 10px;
+}
+.no-record{
+    // text-align: center;
+    // width: 100%;
+    // font-size: 1.2em;
+    // padding: 20px;
+}
+.mat-table .mat-sort-header-container {
+    // margin-bottom: 0.8rem;
+    // text-align: center;
+}
+.mat-table tr.mat-header-row{
+    // height: 3.5em;
+}
+.table {
+    margin-bottom: 0!important;
+ }
+.table td {
+    vertical-align: middle!important;
+}
+.table thead th {
+    vertical-align: middle!important;;
+    // border-bottom: 2px solid #dee2e6;
+}
+.dark-overlay{
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    min-height:100%; 
+}
+
+.mat-table .mat-sort-header-arrow{
+    color: #fff;
+}
+::ng-deep .global-filter .mat-form-field-appearance-outline .mat-form-field-wrapper{
+    width: 220%;
+    margin: 10px 0 0 10px;
+    color: #2E3192;
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline{
+    color: #b1b3cc;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 49%;
+}
