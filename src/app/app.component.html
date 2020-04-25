@@ -1,170 +1,203 @@
-<mat-toolbar color="primary" class="mat-elevation-z2">
-    <mat-toolbar-row>
-      <span>COVID-19 TRACKER</span>
-      <!-- <span class="example-spacer"></span> -->
-      <!-- <mat-icon class="example-icon" [matMenuTriggerFor]="menu">settings</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="selectedCountry('us')">USA</button>
-        <button mat-menu-item (click)="selectedCountry('india')">India</button>
-        <button mat-menu-item (click)="selectedCountry('italy')">Italy</button>
-        <button mat-menu-item (click)="selectedCountry('spain')">Spain</button>
-        <button mat-menu-item (click)="selectedCountry('france')">France</button>
-      </mat-menu> -->
-    </mat-toolbar-row> 
-</mat-toolbar>
+<div fxFlex fxLayout="column" fxLayoutGap="10px" style="height:100vh">
 
-<div class="container">
-  <h1>World Cases</h1>
+    <mat-toolbar color="primary" class="mat-elevation-z2 header">
+        <mat-toolbar-row>
+          <span>COVID-19 TRACKER</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
 
-    <div fxLayout="column" fxLayoutAlign="space-around start">
+  <div fxLayout="column">
 
-      <mat-card class="example-card mat-elevation-z3" >
-          <mat-card-header>
-            <mat-card-title>Confirmed Cases</mat-card-title>
+      <h1>World Cases</h1>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #FFB997">
+              <mat-card-title>Confirmed Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.recoveredData}}
+            </mat-card-content>
+        </mat-card>
+    
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #F67E7D">
+              <mat-card-title>Death Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.recoveredData}}
+            </mat-card-content>
+        </mat-card>
+        
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #843B62">
+              <mat-card-title>Recovered Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.recoveredData}}
+            </mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <mat-form-field appearance="outline" fxLayout="row" fxLayoutAlign="start start">
+        <mat-label>{{CountryName}} Cases</mat-label>
+        <mat-select matNativeControl required (selectionChange)="selectedCountry($event.value)">
+          <mat-option value="us">USA</mat-option>
+          <mat-option value="india">INDIA</mat-option>
+          <mat-option value="italy">ITALY</mat-option>
+          <mat-option value="spain">SPAIN</mat-option>
+          <mat-option value="france">FRANCE</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #FFB997">
+              <mat-card-title>Confirmed Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.confirmedData}}
+            </mat-card-content>
+        </mat-card>
+        
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #F67E7D">
+              <mat-card-title>Death Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.deathsData}}
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
+            <mat-card-header style="background-color: #843B62">
+              <mat-card-title>Recovered Cases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{this.recoveredData}}
+            </mat-card-content>
+        </mat-card>
+
+      </div >
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+        <mat-card class="mat-elevation-z3" fxFlex="45" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+          <mat-card-header style="background-color: #F67E7D">
+            <mat-card-title>Covid Effected Countries</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            {{this.recoveredData}}
+            <div id="chartdiv" class="chart-style"></div>
           </mat-card-content>
-      </mat-card>
-  
-      <mat-card class="example-card mat-elevation-z3">
-          <mat-card-header>
-            <mat-card-title>Death Cases</mat-card-title>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z3" fxFlex="45" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+          <mat-card-header style="background-color: #F67E7D">
+            <mat-card-title>Covid Effected Countries</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            {{this.recoveredData}}
+            <div id="chartdiv1" class="chart-style"></div>
           </mat-card-content>
-      </mat-card>
-      
-      <mat-card class="example-card mat-elevation-z3">
-          <mat-card-header>
-            <mat-card-title>Recovered Cases</mat-card-title>
+        </mat-card>
+        
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+        <mat-card class="mat-elevation-z3" fxFlex="45" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+          <mat-card-header style="background-color: #F67E7D">
+            <mat-card-title>Covid Effected Countries</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            {{this.recoveredData}}
+            <div id="WorldChartdiv" class="chart-style"></div>
           </mat-card-content>
-      </mat-card>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z3" fxFlex="45" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+          <mat-card-header style="background-color: #F67E7D">
+            <mat-card-title>Covid Effected Countries</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div id="mapChart" class="chart-style"></div>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+               
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+
+        <mat-card class="mat-elevation-z3" fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="100" fxLayout="column">
+
+          <div id="covid-table">
+
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
+            </mat-form-field>
+
+            <!-- <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8"> -->
+            <table mat-table matSort [dataSource]="dataSource">
+
+              <ng-container matColumnDef="country_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Country Names </th>
+                <td mat-cell *matCellDef="let element"> {{element.country_name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cases">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cases </th>
+                <td mat-cell *matCellDef="let element"> {{element.cases}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="deaths">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Deaths </th>
+                <td mat-cell *matCellDef="let element"> {{element.deaths}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="region">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Region </th>
+                <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="total_recovered">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
+                <td mat-cell *matCellDef="let element"> {{element.total_recovered}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="new_deaths">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.new_deaths}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="new_cases">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> New Cases </th>
+                <td mat-cell *matCellDef="let element"> {{element.new_cases}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="serious_critical">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Critical Cases </th>
+                <td mat-cell *matCellDef="let element"> {{element.serious_critical}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="active_cases">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Active cases </th>
+                <td mat-cell *matCellDef="let element"> {{element.active_cases}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [hidden]="dataSource.filteredData.length == 0" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+          
+          </div>
+
+        </mat-card>
+
+      </div>
 
     </div>
 
-    <h1 [matMenuTriggerFor]="menu">{{CountryName}} Cases</h1>
-    <!-- <mat-icon class="example-icon" [matMenuTriggerFor]="menu">settings</mat-icon> -->
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="selectedCountry('us')">USA</button>
-      <button mat-menu-item (click)="selectedCountry('india')">India</button>
-      <button mat-menu-item (click)="selectedCountry('italy')">Italy</button>
-      <button mat-menu-item (click)="selectedCountry('spain')">Spain</button>
-      <button mat-menu-item (click)="selectedCountry('france')">France</button>
-    </mat-menu>
-
-    <div fxLayout="column" fxLayoutAlign="space-around start">
-
-      <mat-card class="example-card mat-elevation-z3">
-          <mat-card-header>
-            <mat-card-title>Confirmed Cases</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{this.confirmedData}}
-          </mat-card-content>
-      </mat-card>
-      
-      <mat-card class="example-card mat-elevation-z3">
-          <mat-card-header>
-            <mat-card-title>Death Cases</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{this.deathsData}}
-          </mat-card-content>
-      </mat-card>
-
-      <mat-card class="example-card mat-elevation-z3">
-          <mat-card-header>
-            <mat-card-title>Recovered Cases</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{this.recoveredData}}
-          </mat-card-content>
-      </mat-card>
-
-    </div>
-
-
-
-  <div id="chartdiv" style="width: 100%; height: 500px"></div>
-  <!-- <div id="chartdiv1" style="width: 100%; height: 500px"></div> -->
-  <!-- <div class="m-chart">
-    <div #charRef></div>
-  </div> -->
-  <!-- <div class="m-chart" style="width: 100%; height: 200">
-    <div id="chartdiv1"></div>
-  </div> -->
-
-  <div id="covid-table">
-
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
-    </mat-form-field>
-
-    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <ng-container matColumnDef="country_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country Names </th>
-        <td mat-cell *matCellDef="let element"> {{element.country_name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="cases">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cases </th>
-        <td mat-cell *matCellDef="let element"> {{element.cases}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="deaths">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deaths </th>
-        <td mat-cell *matCellDef="let element"> {{element.deaths}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="region">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Region </th>
-        <td mat-cell *matCellDef="let element"> {{element.region}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total_recovered">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
-        <td mat-cell *matCellDef="let element"> {{element.total_recovered}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="new_deaths">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.new_deaths}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="new_cases">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> New Cases </th>
-        <td mat-cell *matCellDef="let element"> {{element.new_cases}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="serious_critical">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Critical Cases </th>
-        <td mat-cell *matCellDef="let element"> {{element.serious_critical}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="active_cases">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active cases </th>
-        <td mat-cell *matCellDef="let element"> {{element.active_cases}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total_cases_per_1m_population">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cases/1m population </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [hidden]="dataSource.filteredData.length == 0" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-  
-  </div>
-
-  
 </div>
