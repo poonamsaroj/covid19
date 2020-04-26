@@ -10,7 +10,7 @@
 
       <h1>World Cases</h1>
 
-      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="tabs">
 
         <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
             <mat-card-header style="background-color: #FFB997">
@@ -26,7 +26,7 @@
               <mat-card-title>Death Cases</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              {{this.recoveredData}}
+              {{this.deathsData}}
             </mat-card-content>
         </mat-card>
         
@@ -41,7 +41,7 @@
 
       </div>
 
-      <mat-form-field appearance="outline" fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxLayout="row" fxLayoutAlign="start start" >
         <mat-label>{{CountryName}} Cases</mat-label>
         <mat-select matNativeControl required (selectionChange)="selectedCountry($event.value)">
           <mat-option value="us">USA</mat-option>
@@ -52,7 +52,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="tabs">
 
         <mat-card class="mat-elevation-z3" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="80" fxLayout="column">
             <mat-card-header style="background-color: #FFB997">
@@ -129,12 +129,11 @@
                
       <div class="example-container" fxLayout="row wrap" fxLayoutAlign="space-around center">
 
-        <mat-card class="mat-elevation-z3">
+        <mat-card class="mat-elevation-z3" fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="95" fxLayout="column">
 
           <!-- <div id="covid-table"> -->
-
-            <mat-form-field>
-              <mat-label>Filter</mat-label>
+            <mat-form-field appearance="outline" fxLayout="row" fxLayoutAlign="start start" style="left: 20px!important;top: 10px!important;">
+              <mat-label>Search...</mat-label>
               <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
             </mat-form-field>
 
@@ -155,17 +154,17 @@
                 <td mat-cell *matCellDef="let element"> {{element.deaths}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="region">
+              <!-- <ng-container matColumnDef="region">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Region </th>
                 <td mat-cell *matCellDef="let element"> {{element.region}} </td>
-              </ng-container>
+              </ng-container> -->
 
               <ng-container matColumnDef="total_recovered">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Recovered </th>
                 <td mat-cell *matCellDef="let element"> {{element.total_recovered}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="new_deaths">
+              <!-- <ng-container matColumnDef="new_deaths">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
                 <td mat-cell *matCellDef="let element"> {{element.new_deaths}} </td>
               </ng-container>
@@ -173,17 +172,17 @@
               <ng-container matColumnDef="new_cases">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> New Cases </th>
                 <td mat-cell *matCellDef="let element"> {{element.new_cases}} </td>
-              </ng-container>
+              </ng-container> -->
 
               <ng-container matColumnDef="serious_critical">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Critical Cases </th>
                 <td mat-cell *matCellDef="let element"> {{element.serious_critical}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="active_cases">
+              <!-- <ng-container matColumnDef="active_cases">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Active cases </th>
                 <td mat-cell *matCellDef="let element"> {{element.active_cases}} </td>
-              </ng-container>
+              </ng-container> -->
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

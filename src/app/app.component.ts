@@ -47,7 +47,7 @@ export class AppComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  displayedColumns: string[] = ['country_name', 'cases', 'deaths', 'region', 'total_recovered', 'new_deaths', 'new_cases', 'serious_critical', 'active_cases'];
+  displayedColumns: string[] = ['country_name', 'cases', 'deaths', 'total_recovered', 'serious_critical'];
   dataSource;
 
   constructor(private https: HttpClient, private zone: NgZone) {
